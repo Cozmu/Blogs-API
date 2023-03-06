@@ -7,7 +7,7 @@ const validateToken = (req, res, next) => {
       return res.status(401).json({ message: 'Token not found' });
     }
     const payload = verifyToken(authorization);
-    req.data = payload.data;
+    req.data = payload;
     next();
   } catch (error) {
     res.status(401).json({ message: 'Expired or invalid token' });
