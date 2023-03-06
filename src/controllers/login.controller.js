@@ -7,7 +7,6 @@ const login = async (req, res) => {
     return res.status(400).json({ message: 'Some required fields are missing' }); 
   }
   const checkFields = await loginService.checkUser(email, password);
-  // console.log('QUERO DAQUI =>', checkFields[0]);
   if (checkFields.length === 0) {
     return res.status(400).json({ message: 'Invalid fields' });
   }

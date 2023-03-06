@@ -22,4 +22,3 @@ const validateNewUser = async (req, res, next) => {
 };
 
 module.exports = validateNewUser;
-// if (check[0]?.email === email) return res.status(409).json({ message: 'User already registered' });
