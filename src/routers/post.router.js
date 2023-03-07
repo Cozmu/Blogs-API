@@ -6,6 +6,7 @@ const validateUpdateBlogPost = require('../middlewares/validateUpdateBlogPost');
 
 const router = express.Router();
 
+router.get('/search', validateToken, postCotroller.listBlogPostBySearch);
 router.get('/:id', validateToken, postCotroller.listBlogPostById);
 router.get('/', validateToken, postCotroller.listAllBlogPosts);
 router.post(
