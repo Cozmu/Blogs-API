@@ -5,6 +5,7 @@ const validateNewBlogPost = require('../middlewares/validateNewBlogPost');
 
 const router = express.Router();
 
+router.get('/:id', validateToken, postCotroller.listBlogPostById);
 router.get('/', validateToken, postCotroller.listAllBlogPosts);
 router.post(
   '/',
