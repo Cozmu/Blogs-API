@@ -24,7 +24,21 @@ const listBlogPostById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const updateBlogPost = async (req, res) => {
+  const { id } = req.params;
+  const checkBlogPostExists = await postService.getBlogPostsById(id);
+  if (!checkBlogPostExists) return res.status(404).json({ message: 'Non-existent post' });
+  if (checkBlogPostExists.id !== req.data.id) {
+    return res.status(401).json({ message: 'Unauthorized user' }); 
+  }
+  const updateRequest = await postService.updateBlogPost(id, req.body);
+  const result = await postService.getBlogPostsById(updateRequest);
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
+  updateBlogPost,
   listBlogPostById,
   newBlogPost,
   listAllBlogPosts,
