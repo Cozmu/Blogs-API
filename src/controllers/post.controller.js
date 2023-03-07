@@ -27,7 +27,7 @@ const listBlogPostById = async (req, res) => {
 const updateBlogPost = async (req, res) => {
   const { id } = req.params;
   const checkBlogPostExists = await postService.getBlogPostsById(id);
-  if (!checkBlogPostExists) return res.status(404).json({ message: 'Non-existent post' });
+  if (!checkBlogPostExists) return res.status(404).json({ message: 'Post does not exist' });
   if (checkBlogPostExists.id !== req.data.id) {
     return res.status(401).json({ message: 'Unauthorized user' }); 
   }
@@ -37,9 +37,21 @@ const updateBlogPost = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const deleteBlogPost = async (req, res) => {
+  const { id } = req.params;
+  const checkBlogPostExists = await postService.getBlogPostsById(id);
+  if (!checkBlogPostExists) return res.status(404).json({ message: 'Post does not exist' });
+  if (checkBlogPostExists.userId !== req.data.id) {
+    return res.status(401).json({ message: 'Unauthorized user' }); 
+  }
+  await postService.destroy(id);
+  return res.status(204).end();
+};
+
 module.exports = {
   updateBlogPost,
   listBlogPostById,
+  deleteBlogPost,
   newBlogPost,
   listAllBlogPosts,
 };

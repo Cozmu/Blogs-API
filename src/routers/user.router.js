@@ -8,5 +8,6 @@ const router = express.Router();
 router.get('/:id', validateToken, userController.listUserById);
 router.get('/', validateToken, userController.listUsers);
 router.post('/', validateNewUser, userController.newUser);
+router.delete('/me', validateToken, userController.deleteUser);
 
 module.exports = router;
